@@ -17,10 +17,13 @@ def InputNumber(textForInput):
 def ExecOperation(operationAsked, a, b):
 ### ExecutOperation
     Vars = {}
-    operationExec = """res = {}""".format(operationAsked).replace("a", str(a)).replace("b", str(b))
-    exec(operationExec, Vars)
-    return 0, Vars['res']
-
+    try:
+        operationExec = """res = {}""".format(operationAsked).replace("a", str(a)).replace("b", str(b))
+        exec(operationExec, Vars)
+        return 0, Vars['res']
+    except ZeroDivisionError:
+        print ("division to zero, please, don't do it")
+        return 1, 0
 
 def CheckOperation(operationInput):
     if operationInput == "+":
@@ -79,4 +82,7 @@ def MainWorkflow():
     print ("end")
     return 0, result
 
-MainWorkflow()
+try:	
+    MainWorkflow()
+except Exception:
+    print('Error!?' + str(Exception))
